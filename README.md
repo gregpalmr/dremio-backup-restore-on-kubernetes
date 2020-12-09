@@ -11,6 +11,8 @@ a. Launched a Dremio Data Lake Engine instance on a Kubernetes cluster using the
 
 b. The Dremio instance is running and in a healthy state.
 
+c. Have a working **kubectl** cli session to your Kubernetes cluster
+
 ## Step 1. Backup Dremio Coordinator node
 
 Launch a bash terminal session into the Dremio Coordinator pod
