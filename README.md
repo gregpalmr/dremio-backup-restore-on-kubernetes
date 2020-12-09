@@ -47,7 +47,7 @@ Copy the TAR file from the pod to the local computer
 
      $ kubectl cp dremio-master-0:/opt/dremio/data/backups/dremio_backup_<date>.tar.gz dremio_backup_<date>.tar.gz
 
-## Step 2. Restore Dremio meta-data to a new cluster.
+## Step 2. Restore Dremio meta-data to a new cluster
 
 Use this step to restore a Dremio backup to a new Dremio Data Lake Instance running on Kubernetes. Launch a new cluster using the Dremio Helm chart located at:
 
