@@ -1,7 +1,7 @@
 # dremio-backup-restore-on-kubernetes
 Dremio Data Lake Engine - Backup and Restore Procedure on Kubernetes
 
-Use these instructions if you want to backup Dremio meta-data on a Dremio Data Lake Engine running on a Kubernetes cluster.
+Use these instructions if you want to backup and restore Dremio meta-data on a Dremio Data Lake Engine running on a Kubernetes cluster.
 
 ### Prerequisites:
 
