@@ -45,7 +45,7 @@ Copy the TAR file from the pod to the local computer
 
 ### Step 3. Start a Dremio Admin pod to run offline commands
 
-Use the helm chart command to stop the main Dremio pods and start a "Dremio Admin" pod that attaches to the persistant volume claim.
+Use the helm chart command to stop the main Dremio pods and start a "Dremio Admin" pod that attaches to the persistent volume claim.
 
      $ helm upgrade <dremio-cluster-name> dremio_v2 --reuse-values --set DremioAdmin=true
 
