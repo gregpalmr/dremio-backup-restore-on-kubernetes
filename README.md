@@ -11,7 +11,7 @@ a. Launched a Dremio Data Lake Engine instance on a Kubernetes cluster using the
 
 b. The Dremio instance is running and in a healthy state.
 
-c. Have a working **kubectl** cli session to your Kubernetes cluster
+c. Have a working **kubectl** cli session to your Kubernetes cluster.
 
 ## Step 1. Backup Dremio Coordinator node
 
@@ -35,17 +35,17 @@ Create a single TAR file from the backup directory
 
 Exit the pod bash terminal session
 
-dremio@dremio-master-0:/opt/dremio $ exit
+     dremio@dremio-master-0:/opt/dremio $ exit
 
-### Step 2. Copy the backup image to your desktop computer
+### Step 2. Copy the backup image to your local computer
 
 Copy the TAR file from the pod to the local computer
 
      $ kubectl cp dremio-master-0:/opt/dremio/data/backups/dremio_backup_<date>.tar.gz dremio_backup_<date>.tar.gz
 
-### Step 3. Start a Dremio Admin pod to run offline commands
+### Step 3. Start a Dremio admin pod to run offline commands
 
-Use the helm chart command to stop the main Dremio pods and start a "Dremio Admin" pod that attaches to the persistent volume claim.
+Use the helm chart command to stop the main Dremio pods and start a Dremio admin pod that attaches to the persistent volume claim.
 
      $ helm upgrade <dremio-cluster-name> dremio_v2 --reuse-values --set DremioAdmin=true
 
@@ -59,6 +59,8 @@ Remove the old backup files if they exists
      dremio-admin:/opt/dremio $ rm -rf /opt/dremio/data/backups
 
      dremio-admin:/opt/dremio $ mkdir -p /opt/dremio/data/backups
+
+Exit the pod bash terminal session
 
      dremio-admin:/opt/dremio $ exit
 
@@ -81,14 +83,12 @@ mv the old Dremio meta-data directory
 
 Extract the files from the TAR file
 
-     dremio-admin:/opt/dremio $ cd /
-
      dremio-admin:/opt/dremio $ tar xzvf dremio_backup_<date>.tar.gz -C /
 
 Run the Dremio admin restore command
 
      dremio-admin:/opt/dremio $ /opt/dremio/bin/dremio-admin restore \
-          -d /opt/dremio/data/backups/dremio_backup_<date>
+                                -d /opt/dremio/data/backups/dremio_backup_<date>
 
 Exit the bash terminal session on the admin pod
 
@@ -96,9 +96,9 @@ Exit the bash terminal session on the admin pod
 
 ### Step 6. Relaunch the main Dremio coordinator and executor pods
 
-Stop the "Dremio Admin" pod and start the Dremio pods
+Stop the Dremio admin pod and start the Dremio pods
 
-     $ helm upgrade <release-name> dremio_v2 --reuse-values --set DremioAdmin=false
+     $ helm upgrade  <dremio-cluster-name> dremio_v2 --reuse-values --set DremioAdmin=false
 
 Wait for the pods to start and then get the Dremio coordinator service IP address
 
