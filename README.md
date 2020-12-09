@@ -17,7 +17,7 @@ c. Have a working **kubectl** cli session to your Kubernetes cluster.
 
 Use this step to backup the Dremio meta-data from a running Dremio Data Lake Instance.
 
-### Step 1.a. Run the Dremio backup command
+### 1.a. Run the Dremio backup command
 
 Launch a bash terminal session into the Dremio Coordinator pod
 
@@ -41,7 +41,7 @@ Exit the pod bash terminal session
 
      dremio@dremio-master-0:/opt/dremio $ exit
 
-### Step 1.b. Copy the backup image to your local computer
+### 1.b. Copy the backup image to your local computer
 
 Copy the TAR file from the pod to the local computer
 
@@ -53,13 +53,13 @@ Use this step to restore a Dremio backup to a new Dremio Data Lake Instance runn
 
 [https://github.com/dremio/dremio-cloud-tools/tree/master/charts/dremio_v2](https://github.com/dremio/dremio-cloud-tools/tree/master/charts/dremio_v2)
 
-### Step 2.a. Start a Dremio admin pod to run offline commands
+### 2.a. Start a Dremio admin pod to run offline commands
 
 Use the helm chart command to stop the main Dremio pods and start a Dremio admin pod that attaches to the persistent volume claim.
 
      $ helm upgrade <dremio-cluster-name> dremio_v2 --reuse-values --set DremioAdmin=true
 
-### Step 2.b. Copy the Dremio backup file to the admin pod
+### 2.b. Copy the Dremio backup file to the admin pod
 
 Remove the old backup files if they exists
 
@@ -78,7 +78,7 @@ Copy the backup file to the admin pod
      $ kubectl cp dremio_backup_<date>.tar.gz \
              dremio-admin:/opt/dremio/data/backups/dremio_backup_<date>.tar.gz 
 
-### Step 2.c. Restore the Dremio backup using the offline commands
+### 2.c. Restore the Dremio backup using the offline commands
 
 Run the offline restore commands in the admin pod
 
@@ -103,7 +103,7 @@ Exit the bash terminal session on the admin pod
 
      dremio-admin:/opt/dremio $ exit
 
-### Step 2.d. Relaunch the main Dremio coordinator and executor pods
+### 2.d. Relaunch the main Dremio coordinator and executor pods
 
 Stop the Dremio admin pod and start the Dremio pods
 
