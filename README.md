@@ -15,6 +15,10 @@ c. Have a working **kubectl** cli session to your Kubernetes cluster.
 
 ## Step 1. Backup Dremio Coordinator node
 
+Use this step to backup the Dremio meta-data from a running Dremio Data Lake Instance.
+
+### Step 1.a. Run the Dremio backup command
+
 Launch a bash terminal session into the Dremio Coordinator pod
 
      $ kubectl exec -it dremio-master-0 -- bash
@@ -37,20 +41,25 @@ Exit the pod bash terminal session
 
      dremio@dremio-master-0:/opt/dremio $ exit
 
-### Step 2. Copy the backup image to your local computer
+### Step 1.b. Copy the backup image to your local computer
 
 Copy the TAR file from the pod to the local computer
 
      $ kubectl cp dremio-master-0:/opt/dremio/data/backups/dremio_backup_<date>.tar.gz dremio_backup_<date>.tar.gz
 
-### Step 3. Start a Dremio admin pod to run offline commands
+## Step 2. Restore Dremio meta-data to a new cluster.
+
+Use this step to restore a Dremio backup to a new Dremio Data Lake Instance running on Kubernetes. Launch a new cluster using the Dremio Helm chart located at:
+
+[https://github.com/dremio/dremio-cloud-tools/tree/master/charts/dremio_v2](https://github.com/dremio/dremio-cloud-tools/tree/master/charts/dremio_v2)
+
+### Step 2.a. Start a Dremio admin pod to run offline commands
 
 Use the helm chart command to stop the main Dremio pods and start a Dremio admin pod that attaches to the persistent volume claim.
 
      $ helm upgrade <dremio-cluster-name> dremio_v2 --reuse-values --set DremioAdmin=true
 
-### Step 4. Copy the Dremio backup file to the admin pod
-
+### Step 2.b. Copy the Dremio backup file to the admin pod
 
 Remove the old backup files if they exists
 
@@ -69,7 +78,7 @@ Copy the backup file to the admin pod
      $ kubectl cp dremio_backup_<date>.tar.gz \
              dremio-admin:/opt/dremio/data/backups/dremio_backup_<date>.tar.gz 
 
-### Step 5. Restore the Dremio backup using the offline commands
+### Step 2.c. Restore the Dremio backup using the offline commands
 
 Run the offline restore commands in the admin pod
 
@@ -94,7 +103,7 @@ Exit the bash terminal session on the admin pod
 
      dremio-admin:/opt/dremio $ exit
 
-### Step 6. Relaunch the main Dremio coordinator and executor pods
+### Step 2.d. Relaunch the main Dremio coordinator and executor pods
 
 Stop the Dremio admin pod and start the Dremio pods
 
