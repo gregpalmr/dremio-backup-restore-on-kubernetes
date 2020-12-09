@@ -3,6 +3,14 @@ Dremio Data Lake Engine - Backup and Restore Procedure on Kubernetes
 
 Use these instructions if you want to backup Dremio meta-data on a Dremio Data Lake Engine running on a Kubernetes cluster.
 
+### Prerequisites:
+
+     a. Launched a Dremio Data Lake Engine instance on a Kubernetes cluster using the Dremio Helm chart located at: 
+
+          https://github.com/dremio/dremio-cloud-tools/tree/master/charts/dremio_v2
+
+     b. The Dremio instance is running and in a healthy state.
+
 ## Step 1. Backup Dremio Coordinator node
 
 Launch a bash terminal session into the Dremio Coordinator pod
